@@ -13,6 +13,7 @@ public class BasicKCC : MonoBehaviour
     private bool jumpOnce = false;
     void Update()
     {
+        // used for cycle animation
         if (Input.GetKeyDown(KeyCode.E)) 
         {
             if (!animator.GetBool("isCycle")) 
@@ -24,10 +25,12 @@ public class BasicKCC : MonoBehaviour
                 animator.SetBool("isCycle", false);
             }
         }
+        // movement
         Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), 0.0f, Input.GetAxisRaw("Vertical"));
 
         transform.Translate(input * Time.deltaTime);
 
+        // if the speed is greater > 0.1f it will display animation
         animator.SetFloat("speed", input.magnitude);
 
         if (animator.GetFloat("speed") < 0.1f)
@@ -41,9 +44,11 @@ public class BasicKCC : MonoBehaviour
         }
         else
         {
+            // will set the crouchAccumulatedTime to what crouch is currently at and reset timer
             crouchAccumulatedTime = animator.GetFloat("crouch");
             crouchTimer = 0.0f;
         }
+        // jump animation
         if ((Input.GetKeyDown(KeyCode.Space) && (!animator.GetBool("jump") && animator.GetFloat("speed") < 0.1f)))
         {
             animator.SetBool("jump", true);
@@ -53,6 +58,7 @@ public class BasicKCC : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // applying jump phyiscs
         if (jumpOnce) 
         {
             jumpOnce = false;
@@ -60,6 +66,7 @@ public class BasicKCC : MonoBehaviour
         }
     }
 
+    // will make you crouch downwards
     void SetDownCrouchBasedOnTime(float value, KeyCode key) 
     {
         if (Input.GetKey(key))
@@ -76,6 +83,8 @@ public class BasicKCC : MonoBehaviour
             }
         }
     }
+
+    // will make you crouch upwards
     void SetUpCrouchBasedOnTime(float value, KeyCode key)
     {
         if (Input.GetKey(key))
@@ -92,7 +101,7 @@ public class BasicKCC : MonoBehaviour
             }
         }
     }
-
+    // checks to see if you hit the ground
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.layer == layerCollision) 

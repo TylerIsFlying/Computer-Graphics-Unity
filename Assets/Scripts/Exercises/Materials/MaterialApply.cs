@@ -40,12 +40,14 @@ public class MaterialApply : MonoBehaviour
             renderersProp[i].renderer.material = materialObjects[renderersProp[i].matObjIndxID].material;
         }
     }
+    // allows you to add the renderer and the name of the material to the materialObjects variable
     public void AddRenderer(Renderer renderer, string matObjectName)
     {
         RendererProp temp = new RendererProp(renderer, new MaterialPropertyBlock(), matObjectName, FindMatObject(matObjectName));
         renderer.material = materialObjects[temp.matObjIndxID].material;
         renderersProp.Add(temp);
     }
+    // removes the object from the materialObjects variable
     public void RemoveRenderer(Renderer renderer, string matObjectName)
     {
         foreach(RendererProp rp in renderersProp) 
@@ -57,6 +59,7 @@ public class MaterialApply : MonoBehaviour
             }
         }
     }
+    // will set the same renderer to a different material
     public void SetRenderer(Renderer renderer, string matObjectName)
     {
         foreach (RendererProp rp in renderersProp)
@@ -69,6 +72,7 @@ public class MaterialApply : MonoBehaviour
             }
         }
     }
+    // checks to see if we already have the same renderer with material name
     public bool isAlreadyIn(Renderer renderer, string matObjectName)
     {
         foreach (RendererProp rp in renderersProp)
@@ -80,6 +84,7 @@ public class MaterialApply : MonoBehaviour
         }
         return false;
     }
+    // checks to see if we have the renderer without the material name
     public bool isAlreadyIn(Renderer renderer)
     {
         foreach (RendererProp rp in renderersProp)

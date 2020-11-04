@@ -32,8 +32,10 @@ public class ChangeMaterial : MonoBehaviour
             tb.button.onClick.AddListener(delegate { SetMatObject(tb.matObjName); });
         }
     }
+
     private void Update()
     {
+        // checking for raycasts and if it hits it will display a panel
         if (!(Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))) return;
         RaycastHit hit;
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);
@@ -50,6 +52,7 @@ public class ChangeMaterial : MonoBehaviour
             currentObject = hit.transform.gameObject;
         }
     }
+    // setting the material for the object
     void SetMatObject(string matObjectName) 
     {
         Renderer renderer;

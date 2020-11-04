@@ -24,7 +24,7 @@ public class ParticleShooter : MonoBehaviour
     }
     private void Update()
     {
-
+        // shoots the particles
         if (Input.GetKey(KeyCode.R)) 
         {
             particleSystem.gameObject.SetActive(true);
